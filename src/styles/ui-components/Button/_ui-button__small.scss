@@ -1,0 +1,14 @@
+.ml-button {
+    border: 0;
+    background: $blue-600;
+    color: #fff;
+    font-weight: 400;
+    font-size: 20px;
+    border-radius: $border-radius;
+    padding: 8px 15px;
+    margin: 0 15px;
+    
+    &.ml-button--big {
+        padding: 13px 25px;
+    }
+}

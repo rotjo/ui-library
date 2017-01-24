@@ -1,0 +1,142 @@
+.ml-textfield {
+    position: relative;
+    display: block;
+    height: 60px;
+    padding: 16px 0 0;
+    margin: 10px 15px;
+    
+    .ml-textfield__label {
+        position: absolute;
+        font-size: 20px;
+        top: 23px;
+        display: block;
+        color: $secondary-text-color;
+        font-weight: 300;
+        transition: all .2s ease;
+    }
+    
+    .ml-textfield__input {
+        position: relative;
+        appearance: none;
+        background-color: transparent;
+        border: 0;
+        border-bottom: 1px solid $disabled-color;
+        height: 35px;
+        font-family: inherit;
+        font-size: 20px;
+        font-weight: 300;
+        width: 99%;
+        outline: none;
+        
+        &::-webkit-contacts-auto-fill-button {
+            visibility: hidden;
+            display: none !important;
+            pointer-events: none;
+            height: 0;
+            width: 0;
+            margin: 0;
+        }
+    }
+    
+    .ml-textfield__status-bar {
+        width: 100%;
+        margin-top: -1px;
+        height: 2px;
+        opacity: 0;
+    }
+    
+    .ml-textfield__error {
+        position: absolute;
+        bottom: 0;
+        left: 1px;
+        color: red;
+        opacity: 0;
+        font-size: 14px;
+        font-weight: 300;
+        
+        &.ml-textfield__error--visible {
+            opacity: 1;
+            color: $secondary-text-color;
+        }
+    }
+    
+    &.is-disabled .ml-textfield__input{
+        color: $disabled-color;
+    }
+    
+    &.is-invalid {
+        .ml-textfield__error {
+            opacity: 1;
+        }
+        
+        .ml-textfield__input {
+            border-bottom: 1px solid red;
+        }
+        
+        &.is-indeterminate {
+            .ml-textfield__input {
+                border-bottom: 1px solid red;
+            }
+        }
+        
+        &.is-focused {
+            .ml-textfield__status-bar {
+                @include status-bar(red, red, none);
+            }
+        }
+    }
+    
+    &.has-placeholder {
+        .ml-textfield__label{
+            top: 0;
+            font-size: 14px;
+        }
+        
+        &.is-focused .ml-textfield__label{
+            color: $blue-600;
+        }
+    }
+    
+    &.is-dirty {
+        .ml-textfield__label{
+            top: 0;
+            font-size: 14px;
+        }
+        
+        &.is-focused .ml-textfield__label{
+            color: $blue-600;
+        }
+        
+        &.is-invalid .ml-textfield__label {
+            color: red;
+        }
+    }
+    
+    &.is-focused {
+        .ml-textfield__label{
+            color: $blue-600;
+            top: 0;
+            font-size: 14px;
+        }
+        
+        &.is-invalid .ml-textfield__label {
+            color: red;
+        }
+        
+        .ml-textfield__status-bar {
+            @include status-bar(transparent, $blue-600, status-focused);
+        }
+        
+        &.is-indeterminate:not(.is-invalid) {
+            .ml-textfield__status-bar {
+                @include status-bar($blue-100, $blue-600, status-indeterminate);
+            }
+        }
+    }
+    
+    &.is-indeterminate {
+        .ml-textfield__status-bar {
+            @include status-bar($blue-100, $blue-600, status-indeterminate);
+        }
+    }
+}

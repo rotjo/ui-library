@@ -1,0 +1,23 @@
+@keyframes status-indeterminate {
+    0% {
+        left: 0;
+        width: 5%;
+    }
+    50% {
+        left: 15%;
+        width: 60%;
+    }
+    100% {
+        left: 101%;
+        width: 0;
+    }
+}
+
+@keyframes status-focused {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}

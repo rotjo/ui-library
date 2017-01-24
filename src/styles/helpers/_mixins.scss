@@ -1,0 +1,28 @@
+@mixin status-bar($bgColor, $barColor, $animation) {
+    position: relative;
+    background-color: $bgColor;
+    opacity: 1;
+    
+    &:after {
+        content: '';
+        position: absolute;
+        background-color: $barColor;
+        height: 2px;
+        animation-name: $animation;
+        
+        @if $animation == status-focused {
+            width: 100%;
+            animation-duration: .15s;
+            animation-timing-function: ease;
+            left: 50%;
+            transform: translateX(-50%);
+        } @else if $animation == status-indeterminate {
+            width: 0;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            left: 0;
+            transform: none;
+        }
+    }
+}

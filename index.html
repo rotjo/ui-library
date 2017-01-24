@@ -1,0 +1,121 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8"/>
+    <title>ui-library</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="cleartype" content="on"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="theme-color" content="#fff059"/>
+
+    <link rel="stylesheet" href="https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/300-500-700.css" />
+    <link rel="stylesheet" href="ui-build/css/ui-library__large.css"/>
+    
+    <style>
+        body {
+            background-color: #f1f1f1;
+        }
+        
+        main[role="main"] {
+            font-family: "Proxima Nova";
+        }
+        .generic-container {
+            margin: 100px auto;
+            max-width: 450px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .generic-container .title span {
+            font-size: 24px;
+        }
+        .options {
+            padding: 10px;
+        }
+        
+        .options label {
+            display: block;
+        }
+    </style>
+</head>
+<body >
+    <main role="main">
+            <div class="generic-container">
+                <div class="title">
+                    <span>TEXTFIELD</span>
+                </div>
+                <div class="ml-textfield" id="input">
+                    <label for="street" class="ml-textfield__label">Calle</label>
+                    <input class="ml-textfield__input" type="text" id="street">
+                    <div class="ml-textfield__status-bar"></div>
+                    <span class="ml-textfield__error">Revisa este dato</span>
+                </div>
+                <div class="options">
+                    <span><u>Estados:</u></span>
+                    <label>
+                        <input type="checkbox" id="error-state">
+                        Error state
+                    </label>
+                    <label>
+                        <input type="checkbox" id="indeterminate-state">
+                        Indeterminate state
+                    </label>
+                    <label>
+                        <input type="checkbox" id="focused-state">
+                        Focused state
+                    </label>
+                    <label>
+                        <input type="checkbox" id="disabled-state">
+                        Disabled state
+                    </label>
+                </div>
+            </div>
+    </main>
+    <script src="ui-build/js/ui-library.js"></script>
+    <script>
+        
+        var component = document.getElementById('input');
+        var input = document.getElementById('street');
+        var textfield = new MlTextfield(component);
+        var error = document.getElementById('error-state');
+        var indeterminate = document.getElementById('indeterminate-state');
+        var focused = document.getElementById('focused-state');
+        var disabled = document.getElementById('disabled-state');
+        var message = component.querySelector('.ml-textfield__error');
+        
+        
+        error.addEventListener('change', function (event) {
+            textfield.removeState('indeterminate');
+            event.target.checked ? textfield.addState('invalid') : textfield.removeState('invalid');
+            message.innerHTML = 'Revisa este dato';
+        }, false);
+        
+        indeterminate.addEventListener('change', function () {
+            textfield.removeState('invalid');
+            if(event.target.checked) {
+                textfield.addState('indeterminate');
+                message.innerHTML = 'Validando...';
+                message.classList.add('ml-textfield__error--visible');
+            } else {
+                textfield.removeState('indeterminate');
+                message.innerHTML = 'Revisa este dato';
+                message.classList.remove('ml-textfield__error--visible');
+            }
+        }, false);
+        
+        focused.addEventListener('change', function () {
+            textfield.removeState('invalid');
+            message.innerHTML = 'Revisa este dato';
+            event.target.checked ? textfield.addState('focused') : textfield.removeState('focused');
+        }, false);
+        
+        disabled.addEventListener('change', function () {
+            textfield.removeState('invalid');
+            message.innerHTML = 'Revisa este dato';
+            event.target.checked ? input.setAttribute('disabled', 'disabled') : input.removeAttribute('disabled');
+        }, false);
+    </script>
+</body>
+</html>
